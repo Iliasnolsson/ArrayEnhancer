@@ -163,3 +163,18 @@ This method returns an array of tuples, where each tuple contains an array of el
 func groupForRangeSpacing(_ rangeOf: ((_ lh: Element) -> ClosedRange<CGFloat>)) -> [(elements: [Element], spacing: CGFloat)]
 ```
 
+
+Contributing
+------------
+
+Contributions to `ArrayEnhancer` are welcome and encouraged! If you have any ideas for new features or improvements, feel free to open an issue or submit a pull request.
+
+License
+-------
+
+`ArrayEnhancer` is available under the MIT license. See the LICENSE file for more info.
+
+Author
+------
+
+`ArrayEnhancer` was created by Ilias Nikolaidis Olsson. If you have any questions or comments about `ArrayEnhancer`, feel free to get in touch with me via email or through GitHub.
