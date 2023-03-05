@@ -11,7 +11,7 @@ To use ArrayEnhancer in your project, simply add it as a dependency in your `Pac
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/<username>/<repository>.git", from: "1.0.0")
+    .package(url: "https://github.com/Iliasnolsson/ArrayEnhancer", from: "1.0.0")
 ]
 ```
 
