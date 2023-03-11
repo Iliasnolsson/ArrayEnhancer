@@ -100,7 +100,7 @@ print(grouped) // Output: [25: [Person(age: 25, firstName: "John", lastName: "Do
 ```
 
 
-### groupForEqualSpacing
+### `groupForEqualSpacing`
 
 This method could be used to group an array of `CGRect` elements based on the spacing between their y coordinates. 
 
@@ -187,14 +187,6 @@ This method returns a dictionary where the keys are the values returned by a giv
 
 ```swift
 func groupToDictionary<T: Hashable & Equatable>(whereAllEqualing getValue: ((Element) -> T)) -> [T : [Element]]
-```
-
-### `groupToAllPossibilities`
-
-This method returns an array of arrays, where each subarray contains elements that satisfy a given closure and where no two subarrays contain elements at the same index.
-
-```swift
-func groupToAllPossibilities(where shouldGroup: (_ lh: Element, _ rh: Element) -> Bool) -> [[Element]]
 ```
 
 ### `groupForEqualSpacing`
