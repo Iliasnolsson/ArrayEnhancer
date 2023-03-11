@@ -11,7 +11,7 @@ To use ArrayEnhancer in your project, simply add it as a dependency in your `Pac
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Iliasnolsson/ArrayEnhancer", from: "1.0.0")
+    .package(url: "https://github.com/Iliasnolsson/ArrayEnhancer", from: "1.0.0"..<"2.0.0")
 ]
 ```
 
@@ -50,7 +50,7 @@ print(allAgesEqual) // Output: false
 
 ### `allSatisfyOfSameIndex`
 
-This method could be used to check if all `Person` instances in two arrays have the same age and first name at each index:
+This method could be used to check if all `Person` instances in two arrays have the same age and first name at each index, this method will return false if the number of elements does not equal in the two arrays:
 
 ```swift
 let otherPeople = [
@@ -99,6 +99,49 @@ let grouped = people.groupToDictionary { $0.age }
 print(grouped) // Output: [25: [Person(age: 25, firstName: "John", lastName: "Doe")], 30: [Person(age: 30, firstName
 ```
 
+
+### groupForEqualSpacing
+
+This method could be used to group an array of `CGRect` elements based on the spacing between their y coordinates. 
+
+```swift
+let rectangles: [CGRect] = [
+            CGRect(x: 0, y: 200, width: 50, height: 50),
+            CGRect(x: 0, y: 0, width: 50, height: 50),
+            CGRect(x: 0, y: 100, width: 50, height: 50)
+        ]
+
+let groups = rectangles.groupForEqualSpacing {$0.minY...$0.maxY}
+
+for group in groups {
+    print("Elements with spacing \(group.spacing):")
+    for element in group.elements {
+        print("- \(element)")
+    }
+}
+```
+
+Outputs 
+
+```
+Elements with spacing 150.0:
+- (0.0, 0.0, 50.0, 50.0)
+- (0.0, 200.0, 50.0, 50.0)
+Elements with spacing 50.0:
+- (0.0, 0.0, 50.0, 50.0)
+- (0.0, 100.0, 50.0, 50.0)
+- (0.0, 200.0, 50.0, 50.0)
+```
+
+### `allArrangements`
+
+The allArrangements method generates all possible arrangements of elements in an array, returning an array of arrays where each array is a unique arrangement.
+
+```swift
+let arr = [1, 2]
+print(arr.allArrangements()) 
+// Output: [[1, 2], [2, 1]]
+```
 
 Documentation
 --------
@@ -154,7 +197,7 @@ This method returns an array of arrays, where each subarray contains elements th
 func groupToAllPossibilities(where shouldGroup: (_ lh: Element, _ rh: Element) -> Bool) -> [[Element]]
 ```
 
-### `groupForRangeSpacing`
+### `groupForEqualSpacing`
 
 This method returns an array of tuples, where each tuple contains an array of elements and the spacing between them, based on a given range.
 
