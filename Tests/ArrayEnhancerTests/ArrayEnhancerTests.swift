@@ -91,50 +91,55 @@ final class ArrayEnhancerTests: XCTestCase {
         // Call the method to group the rectangles based on their y-coordinate spacing
         let groups = rectangles.groupForEqualSpacing({$0.minY...$0.maxY})
         
+        
         /*
-         for group in groups {
-         print("Elements with spacing \(group.spacing):")
-         for element in group.elements {
-         print("- \(element)")
-         }
-         }
-         */
+        for group in groups {
+            print("Elements with spacing \(group.spacing):")
+            for element in group.elements {
+                print("- \(element)")
+            }
+        }
+        */
         
-        XCTAssertEqual(groups[0].spacing, 450.0)
-        XCTAssertEqual(groups[0].elements.count, 2)
-        XCTAssertTrue(groups[0].elements.contains(CGRect(x: 0, y: 0, width: 50, height: 50)))
-        XCTAssertTrue(groups[0].elements.contains(CGRect(x: 0, y: 500, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[1].spacing, 350.0)
-        XCTAssertEqual(groups[1].elements.count, 2)
-        XCTAssertTrue(groups[1].elements.contains(CGRect(x: 0, y: 100, width: 50, height: 50)))
-        XCTAssertTrue(groups[1].elements.contains(CGRect(x: 0, y: 500, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[2].spacing, 250.0)
-        XCTAssertEqual(groups[2].elements.count, 2)
-        XCTAssertTrue(groups[2].elements.contains(CGRect(x: 0, y: 100, width: 50, height: 50)))
-        XCTAssertTrue(groups[2].elements.contains(CGRect(x: 0, y: 400, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[3].spacing, 350.0)
-        XCTAssertEqual(groups[3].elements.count, 2)
-        XCTAssertTrue(groups[3].elements.contains(CGRect(x: 0, y: 0, width: 50, height: 50)))
-        XCTAssertTrue(groups[3].elements.contains(CGRect(x: 0, y: 400, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[4].spacing, 250.0)
-        XCTAssertEqual(groups[4].elements.count, 2)
-        XCTAssertTrue(groups[4].elements.contains(CGRect(x: 0, y: 200, width: 50, height: 50)))
-        XCTAssertTrue(groups[4].elements.contains(CGRect(x: 0, y: 500, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[5].spacing, 50.0)
-        XCTAssertEqual(groups[5].elements.count, 2)
-        XCTAssertTrue(groups[5].elements.contains(CGRect(x: 0, y: 400, width: 50, height: 50)))
-        XCTAssertTrue(groups[5].elements.contains(CGRect(x: 0, y: 500, width: 50, height: 50)))
-        
-        XCTAssertEqual(groups[7].spacing, 50.0)
-        XCTAssertEqual(groups[7].elements.count, 3)
-        XCTAssertTrue(groups[7].elements.contains(CGRect(x: 0, y: 0, width: 50, height: 50)))
-        XCTAssertTrue(groups[7].elements.contains(CGRect(x: 0, y: 100, width: 50, height: 50)))
-        XCTAssertTrue(groups[7].elements.contains(CGRect(x: 0, y: 200, width: 50, height: 50)))
+        let expectedGroups: [(elements: [CGRect], spacing: CGFloat)] = [
+            ([CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 200.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 400.0, width: 50.0, height: 50.0)], 150),
+            ([CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 100.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 200.0, width: 50.0, height: 50.0)], 50),
+            ([CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 500.0, width: 50.0, height: 50.0)], 450),
+            ([CGRect(x: 0.0, y: 100.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 500.0, width: 50.0, height: 50.0)], 350),
+            ([CGRect(x: 0.0, y: 100.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 400.0, width: 50.0, height: 50.0)], 250),
+            ([CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 400.0, width: 50.0, height: 50.0)], 350),
+            ([CGRect(x: 0.0, y: 200.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 500.0, width: 50.0, height: 50.0)], 250),
+            ([CGRect(x: 0.0, y: 400.0, width: 50.0, height: 50.0),
+              CGRect(x: 0.0, y: 500.0, width: 50.0, height: 50.0)], 50)
+        ]
+
+        if groups.count == expectedGroups.count {
+            for group in groups {
+                if !expectedGroups.contains(where: { (elements: [CGRect], spacing: CGFloat) in
+                    if spacing == group.spacing {
+                        if elements.count == group.elements.count {
+                            if elements.allSatisfy(group.elements.contains) {
+                                return true
+                            }
+                        }
+                    }
+                    return false
+                }) {
+                    XCTFail("Did not expect the group with spacing: " + group.spacing.description + ", elements: " + group.elements.description)
+                }
+            }
+        } else {
+            XCTFail("Number of groups did not match")
+        }
     }
     
 }
